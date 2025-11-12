@@ -62,14 +62,30 @@ const Cart = () => {
   }, [selectedProducts, setProducts, router]);
 
   return (
-    <div className="mt-8 flex mx-[160px] gap-16 mb-40 items-stretch">
-      <div className="flex-1 border rounded-xl p-6 bg-white shadow-md flex flex-col">
-        <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
+    <div
+      className="
+      mt-8 mb-40 
+      flex flex-col 
+      xl:flex-row 
+      gap-10 xl:gap-16 
+      px-4 sm:px-10 md:px-20 xl:mx-[160px]
+    "
+    >
+      {/* LEFT SIDE */}
+      <div className="flex-1 border rounded-xl p-4 sm:p-6 bg-white shadow-md flex flex-col">
+        <h1 className="text-xl sm:text-2xl font-bold mb-6">Shopping Cart</h1>
+
         <ul className="flex-1">
           {products.map((product) => (
             <li
               key={product.id}
-              className="flex items-center justify-between py-4 border-b"
+              className="
+              flex flex-col sm:flex-row 
+              items-start sm:items-center 
+              justify-between 
+              gap-4 sm:gap-0
+              py-4 border-b
+            "
             >
               <Checkbox
                 checked={isSelected(product.id)}
@@ -78,6 +94,7 @@ const Cart = () => {
                   else removeSelected(product.id);
                 }}
               />
+
               <div className="flex items-center gap-4">
                 <Image
                   src={product.images[0]}
@@ -88,7 +105,9 @@ const Cart = () => {
                 />
                 <h2 className="font-semibold text-lg">{product.title}</h2>
               </div>
+
               <span className="font-bold text-primary">${product.price}</span>
+
               <div className="flex items-center border px-2 py-1 rounded-md">
                 <button
                   onClick={() => decrementProduct(product.id)}
@@ -104,6 +123,7 @@ const Cart = () => {
                   <Plus />
                 </button>
               </div>
+
               <Button
                 variant="destructive"
                 size="icon"
@@ -140,8 +160,18 @@ const Cart = () => {
         )}
       </div>
 
-      <div className="w-[450px] border rounded-xl p-6 shadow-md bg-white flex flex-col">
-        <h2 className="text-xl font-bold mb-4">Order Summary</h2>
+      {/* RIGHT SIDE (ORDER SUMMARY) */}
+      <div
+        className="
+        w-full xl:w-[450px] 
+        border rounded-xl 
+        p-4 sm:p-6 
+        shadow-md bg-white 
+        flex flex-col
+      "
+      >
+        <h2 className="text-xl sm:text-2xl font-bold mb-4">Order Summary</h2>
+
         <div className="mb-4 flex flex-col gap-4">
           <label htmlFor="discount" className="text-sm text-[#545454]">
             Discount code / Promo code
@@ -152,32 +182,38 @@ const Cart = () => {
             className="w-full border rounded-md p-3 mb-2"
             id="discount"
           />
-          <div className="flex gap-4 flex-col">
+
+          <div className="flex flex-col gap-4">
             <label htmlFor="bonus" className="text-sm text-[#545454]">
               Your bonus card number
             </label>
             <input
               type="text"
               placeholder="Your bonus card number"
-              className="flex-1 border rounded-md p-3"
+              className="border rounded-md p-3"
               id="bonus"
             />
             <Button>Apply</Button>
           </div>
         </div>
+
         <div className="flex justify-between py-1">
           <span>Subtotal</span>
           <span>${subtotal.toFixed(2)}</span>
         </div>
+
         <div className="flex justify-between py-1">
           <span>Estimated Tax</span>
           <span>${tax}</span>
         </div>
+
         <div className="flex justify-between py-1">
           <span>Estimated shipping &amp; Handling</span>
           <span>${shipping}</span>
         </div>
+
         <hr className="my-2" />
+
         <div className="flex justify-between font-bold text-lg">
           <span>Total</span>
           <span>${total.toFixed(2)}</span>

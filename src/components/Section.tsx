@@ -7,8 +7,9 @@ import Reklama4 from "@/assets/images/Macbook1.png";
 
 const Section = () => {
   return (
-    <div className="grid grid-cols-4 mt-[56px] items-stretch h-full">
-      <div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
+      {/* Reklama 1 */}
+      <div className="flex flex-col"> 
         <Image
           src={Reklama1}
           alt="image"
@@ -16,16 +17,20 @@ const Section = () => {
           height={366}
           className="h-[366px] object-contain w-full"
         />
-        <div className=" px-[32px]">
-          <p className="text-[30px]">Popular Products</p>
-          <p className="text-[13px] text-[#909090]">
+        <div className="px-4 sm:px-8">
+          <p className="text-2xl sm:text-[30px] mt-4">Popular Products</p>
+          <p className="text-[13px] sm:text-[14px] text-[#909090] mt-2">
             iPad combines a magnificent 10.2-inch Retina display, incredible
             performance, multitasking and ease of use.
           </p>
-          <button className="text-black border hover:bg-black hover:scale-110 duration-700 hover:text-white border-black mt-4 w-[191px] h-[56px] rounded-[6px] mb-[56px]">Shop Now</button>
+          <button className="text-black border hover:bg-black hover:scale-105 duration-500 hover:text-white mt-4 w-full sm:w-[191px] h-[56px] rounded-md mb-4">
+            Shop Now
+          </button>
         </div>
       </div>
-      <div className="bg-[#F9F9F9]">
+
+      {/* Reklama 2 */}
+      <div className="flex flex-col bg-[#F9F9F9]">
         <Image
           src={Reklama2}
           alt="image"
@@ -33,33 +38,41 @@ const Section = () => {
           height={366}
           className="h-[366px] object-contain w-full"
         />
-        <div className=" px-[32px]">
-          <p className="text-[30px]">Popular Products</p>
-          <p className="text-[13px] text-[#909090]">
+        <div className="px-4 sm:px-8">
+          <p className="text-2xl sm:text-[30px] mt-4">Popular Products</p>
+          <p className="text-[13px] sm:text-[14px] text-[#909090] mt-2">
             iPad combines a magnificent 10.2-inch Retina display, incredible
             performance, multitasking and ease of use.
           </p>
-          <button className="text-black border border-black hover:bg-black hover:scale-110 duration-700 hover:text-white mt-4 w-[191px] h-[56px] mb-[56px] rounded-[6px]">Shop Now</button>
+          <button className="text-black border hover:bg-black hover:scale-105 duration-500 hover:text-white mt-4 w-full sm:w-[191px] h-[56px] rounded-md mb-4">
+            Shop Now
+          </button>
         </div>
       </div>
-      <div className="bg-[#EAEAEA]">
+
+      {/* Reklama 3 */}
+      <div className="flex flex-col bg-[#EAEAEA]">
         <Image
           src={Reklama3}
           alt="image"
           width={360}
           height={366}
-          className="h-[366px]  object-contain w-full"
+          className="h-[366px] object-contain w-full"
         />
-        <div className=" px-[32px]">
-          <p className="text-[30px]">Popular Products</p>
-          <p className="text-[13px] text-[#909090]">
+        <div className="px-4 sm:px-8">
+          <p className="text-2xl sm:text-[30px] mt-4">Popular Products</p>
+          <p className="text-[13px] sm:text-[14px] text-[#909090] mt-2">
             iPad combines a magnificent 10.2-inch Retina display, incredible
             performance, multitasking and ease of use.
           </p>
-          <button className="text-black border border-black mt-4 w-[191px] h-[56px] hover:bg-black hover:scale-110 duration-700 hover:text-white rounded-[6px] mb-[56px]">Shop Now</button>
+          <button className="text-black border hover:bg-black hover:scale-105 duration-500 hover:text-white mt-4 w-full sm:w-[191px] h-[56px] rounded-md mb-4">
+            Shop Now
+          </button>
         </div>
       </div>
-      <div className="bg-[#2C2C2C]">
+
+      {/* Reklama 4 */}
+      <div className="flex flex-col bg-[#2C2C2C] text-white">
         <Image
           src={Reklama4}
           alt="image"
@@ -67,13 +80,13 @@ const Section = () => {
           height={366}
           className="h-[366px] object-contain w-full"
         />
-        <div className=" px-[32px] text-white">
-          <p className="text-[30px]">Popular Products</p>
-          <p className="text-[13px] text-[#909090]">
+        <div className="px-4 sm:px-8">
+          <p className="text-2xl sm:text-[30px] mt-4">Popular Products</p>
+          <p className="text-[13px] sm:text-[14px] text-[#909090] mt-2">
             iPad combines a magnificent 10.2-inch Retina display, incredible
             performance, multitasking and ease of use.
           </p>
-          <button className="text-white border hover:bg-white hover:scale-110 duration-700 hover:text-black border-white mt-4 w-[191px] h-[56px] rounded-[6px] mb-[56px]">
+          <button className="text-white border border-white hover:bg-white hover:scale-105 duration-500 hover:text-black mt-4 w-full sm:w-[191px] h-[56px] rounded-md mb-4">
             Shop Now
           </button>
         </div>

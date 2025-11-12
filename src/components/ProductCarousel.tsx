@@ -21,11 +21,13 @@ const CarouselDemo = forwardRef<HTMLDivElement, CarouselProps>(
         <div className="embla__container flex">
           {products.map((category) => (
             <div
-              className="embla__slide flex-[0_0_20%] relative px-2"
               key={category.id}
+              className="embla__slide px-2 flex-[0_0_50%] sm:flex-[0_0_33.3333%] md:flex-[0_0_25%] lg:flex-[0_0_20%]"
             >
-              <Link href={`/category/${category.name}`} className="flex flex-col items-center justify-center bg-[#EDEDED] w-full h-[160px] rounded-2xl hover:scale-105 duration-500 hover:bg-white hover:shadow-2xl cursor-pointer">
-
+              <Link
+                href={`/category/${category.name}`}
+                className="flex flex-col items-center justify-center bg-[#EDEDED] w-full h-[160px] rounded-2xl hover:scale-105 duration-500 hover:bg-white hover:shadow-2xl cursor-pointer"
+              >
                 <h1 className="text-[16px] text-center mt-4 text-lg font-medium">
                   {category.name}
                 </h1>

@@ -1,20 +1,21 @@
 "use client";
 
-import Adrres from "@/assets/icons/Adress.svg";
-import Shipping from "@/assets/icons/Shipping.svg";
-import Payment from "@/assets/icons/Payment.svg";
 import React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import Adrres from "@/assets/icons/Adress.svg";
+import Shipping from "@/assets/icons/Shipping.svg";
+import Payment from "@/assets/icons/Payment.svg";
+import Carta from "@/assets/images/carta.png";
 import AddresModal from "@/components/AddresModal";
 import { useAddress } from "@/components/store/useAddress";
+import { useSelectedProducts } from "@/components/store/useSelectedProducts";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2Icon } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import { useSelectedProducts } from "@/components/store/useSelectedProducts";
-import Carta from "@/assets/images/carta.png";
+import { Edit, Trash2Icon } from "lucide-react";
 
+// Shipping options
 const shippingMethods = [
   { id: 1, title: "Free - Regular shipment", price: 0, date: "17 Oct, 2023" },
   { id: 2, title: "Express - Get it fast", price: 8.5, date: "1 Oct, 2023" },
@@ -25,19 +26,16 @@ const OrderCheckout = () => {
   const [activeTab, setActiveTab] = React.useState<
     "address" | "shipping" | "payment"
   >("address");
-
   const { addresses, removeAddress } = useAddress();
-  const [selectedAddressId, setSelectedAddressId] = React.useState<string | null>(
-    null
-  );
+  const [selectedAddressId, setSelectedAddressId] = React.useState<
+    string | null
+  >(null);
   const [selectedShipping, setSelectedShipping] = React.useState<string | null>(
     null
   );
-
   const [activePayment, setActivePayment] = React.useState<
     "credit" | "paypal" | "paypal-credit"
   >("credit");
-
   const { selectedProducts } = useSelectedProducts();
 
   const selectedAddress = addresses.find(
@@ -51,7 +49,7 @@ const OrderCheckout = () => {
     (sum, p) =>
       sum +
       (p.discountPercentage
-        ? p.price - p.price * (p.discountPercentage / 100)
+        ? p.price - (p.price * p.discountPercentage) / 100
         : p.price) *
         (p.count || 1),
     0
@@ -60,76 +58,46 @@ const OrderCheckout = () => {
   const shippingPrice = selectedShippingMethod
     ? selectedShippingMethod.price
     : 0;
-  const total = subtotal + shippingPrice + 79;
+  const total = subtotal + shippingPrice + 79; // 79 - tax or fees placeholder
 
   return (
     <div className="flex flex-col mx-[160px] lg:mx-[360px]">
+      {/* Steps */}
       <div className="flex gap-[120px] lg:gap-[420px]">
-        <div
-          className={`pb-2 flex gap-2 items-center ${
-            activeTab === "address"
-              ? "text-black font-semibold"
-              : "text-gray-400"
-          }`}
-        >
+        {[
+          { step: "address", title: "Address", icon: Adrres },
+          { step: "shipping", title: "Shipping", icon: Shipping },
+          { step: "payment", title: "Payment", icon: Payment },
+        ].map((s) => (
           <div
-            className={cn(
-              "w-6 h-6 rounded-full flex items-center justify-center",
-              activeTab === "address" ? "bg-black" : "bg-gray-400"
-            )}
+            key={s.step}
+            className={`pb-2 flex gap-2 items-center ${
+              activeTab === s.step
+                ? "text-black font-semibold"
+                : "text-gray-400"
+            }`}
           >
-            <Image src={Adrres} alt="address" className="w-3.5 h-3.5" />
+            <div
+              className={cn(
+                "w-6 h-6 rounded-full flex items-center justify-center",
+                activeTab === s.step ? "bg-black" : "bg-gray-400"
+              )}
+            >
+              <Image src={s.icon} alt={s.title} className="w-3.5 h-3.5" />
+            </div>
+            <div className="flex flex-col gap-0">
+              <span className="text-[14px]">
+                Step {s.step === "address" ? 1 : s.step === "shipping" ? 2 : 3}
+              </span>
+              <span className="text-[18px]">{s.title}</span>
+            </div>
           </div>
-          <div className="flex flex-col gap-0">
-            <span className="text-[14px]">Step 1</span>
-            <span className="text-[18px]">Address</span>
-          </div>
-        </div>
-
-        <div
-          className={`pb-2 flex gap-2 items-center ${
-            activeTab === "shipping"
-              ? "text-black font-semibold"
-              : "text-gray-400"
-          }`}
-        >
-          <div
-            className={cn(
-              "w-6 h-6 rounded-full flex items-center justify-center",
-              activeTab === "shipping" ? "bg-black" : "bg-gray-400"
-            )}
-          >
-            <Image src={Shipping} alt="shipping" className="w-3.5 h-3.5" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[14px]">Step 2</span>
-            <span className="text-[18px]">Shipping</span>
-          </div>
-        </div>
-
-        <div
-          className={`pb-2 flex gap-2 items-center ${
-            activeTab === "payment"
-              ? "text-black font-semibold"
-              : "text-gray-400"
-          }`}
-        >
-          <div
-            className={cn(
-              "w-6 h-6 rounded-full flex items-center justify-center",
-              activeTab === "payment" ? "bg-black" : "bg-gray-400"
-            )}
-          >
-            <Image src={Payment} alt="payment" className="w-3.5 h-3.5" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[14px]">Step 3</span>
-            <span className="text-[18px]">Payment</span>
-          </div>
-        </div>
+        ))}
       </div>
 
+      {/* Content */}
       <div className="mt-10">
+        {/* Address Tab */}
         {addresses && activeTab === "address" && (
           <div className="flex flex-col gap-4">
             <RadioGroup
@@ -180,9 +148,15 @@ const OrderCheckout = () => {
                 </div>
               ))}
             </RadioGroup>
+
             <AddresModal />
+
             <div className="flex items-center mb-5 gap-6 justify-end">
-              <Button variant="outline" className="mt-4 w-[208px] h-[64px]" disabled>
+              <Button
+                variant="outline"
+                className="mt-4 w-[208px] h-[64px]"
+                disabled
+              >
                 Back
               </Button>
               <Button
@@ -197,6 +171,7 @@ const OrderCheckout = () => {
           </div>
         )}
 
+        {/* Shipping Tab */}
         {activeTab === "shipping" && (
           <div>
             <RadioGroup
@@ -253,9 +228,11 @@ const OrderCheckout = () => {
           </div>
         )}
 
+        {/* Payment Tab */}
         {activeTab === "payment" && (
           <div>
             <div className="flex gap-[96px]">
+              {/* Summary */}
               <div className="w-[512px] border border-[#EBEBEB] rounded-[10px]">
                 <p className="text-2xl mt-8 px-6 mb-6">Summary</p>
                 {selectedProducts.map((product, index) => (
@@ -273,6 +250,7 @@ const OrderCheckout = () => {
                     <p className="font-bold">${product.price}</p>
                   </div>
                 ))}
+
                 <div className="px-6 mb-4">
                   {selectedAddress && (
                     <div className="mb-4 text-sm text-gray-600">
@@ -297,6 +275,7 @@ const OrderCheckout = () => {
                 </div>
               </div>
 
+              {/* Payment Options */}
               <div className="w-[512px]">
                 <div className="flex gap-[56px] border-b border-[#E0E0E0] mb-6">
                   <button

@@ -5,11 +5,12 @@ import Twitter from "@/assets/icons/Twitter.svg";
 import Facebook from "@/assets/icons/Facebook.svg";
 import TikTok from "@/assets/icons/Tiktok.svg";
 import Instagram from "@/assets/icons/Instagram.svg";
+
 const Footer = () => {
   return (
-    <div className="w-full h-[410px] bg-[#211C24] text-white">
-      <div className="flex justify-between items-center  pt-[104px] px-[160px]">
-        <div>
+    <div className="w-full bg-[#211C24] text-white">
+      <div className="flex flex-col lg:flex-row justify-between items-start pt-[104px] px-4 sm:px-10 lg:px-[160px] gap-10 lg:gap-0">
+        <div className="lg:w-1/3">
           <Image
             src={Logo}
             alt="logo"
@@ -17,17 +18,16 @@ const Footer = () => {
             height={22}
             className="max-w-[65px] w-full h-[22px]"
           />
-
-          <p className="text-[14px] mt-[24px] mr-[113px]">
+          <p className="text-[14px] mt-[24px] mr-0 lg:mr-[113px]">
             We are a residential interior design firm located in Portland. Our
             boutique-studio offers more than
           </p>
         </div>
 
-        <div className="flex items-center justify-between gap-10 max-w-[632px] w-full pt-[104px]">
+        <div className="flex flex-col sm:flex-row items-start justify-between gap-10 lg:gap-10 lg:w-2/3 pt-10 lg:pt-0">
           <div>
             <ul className="flex flex-col gap-2">
-              <li className="font-semibold  text-[16px]">Services</li>
+              <li className="font-semibold text-[16px]">Services</li>
               <li className="font-normal hover:text-white text-[14px] text-[#CFCFCF] hover:font-semibold">
                 Bonus program
               </li>
@@ -75,7 +75,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex py-20 gap-4 px-[160px] bg-[#211C24]">
+
+      <div className="flex justify-center sm:justify-start py-10 gap-4 px-4 sm:px-10 lg:px-[160px]">
         <Image
           src={Twitter}
           alt="logo"

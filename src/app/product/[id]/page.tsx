@@ -12,7 +12,9 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   React.useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`https://dummyjson.com/products/${params.id}`);
+        const res = await axios.get(
+          `https://dummyjson.com/products/${params.id}`
+        );
         setProduct(res.data);
       } catch (error) {
         console.error("Failed to load product:", error);
@@ -29,7 +31,9 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   }
 
   if (!product) {
-    return <div className="text-center py-20 text-red-500">Product not found</div>;
+    return (
+      <div className="text-center py-20 text-red-500">Product not found</div>
+    );
   }
 
   return <ProductDetails product={product} />;

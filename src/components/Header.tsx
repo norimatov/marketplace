@@ -23,7 +23,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="flex items-center gap-4 xl:gap-[56px] justify-between mb-10 mx-auto max-w-[1440px] px-10 lg:px-32 py-5">
+    <div className="flex flex-col md:flex-row items-center gap-4 xl:gap-[56px] justify-between mb-10 mx-auto max-w-[1440px] px-4 sm:px-10 lg:px-32 py-5">
       <Link href="/">
         <Image
           src={Logo}
@@ -34,9 +34,11 @@ const Header = () => {
         />
       </Link>
 
-      <SearchModal />
+      <div className="w-full md:w-auto mt-4 md:mt-0">
+        <SearchModal />
+      </div>
 
-      <div className="flex items-center justify-between gap-4 lg:gap-6">
+      <div className="flex flex-wrap md:flex-nowrap items-center justify-center md:justify-between gap-2 sm:gap-4 lg:gap-6 mt-4 md:mt-0">
         <Link
           href="/"
           className={`font-medium lg:text-lg ${
@@ -73,7 +75,12 @@ const Header = () => {
         </Link>
       </div>
 
-      <div className="hidden md:flex items-center justify-between gap-3 lg:gap-6">
+      <div className="flex md:hidden items-center gap-4 mt-4 md:mt-0">
+        {/* Mobil uchun menu tugmasi */}
+        <button className="p-2 border rounded-md">Menu</button>
+      </div>
+
+      <div className="hidden md:flex items-center justify-between gap-3 lg:gap-6 mt-4 md:mt-0">
         <Link href={"/favorites"} className="relative">
           {mounted && favorites.length > 0 && (
             <span className="absolute -top-2 -right-2 text-xs bg-red-500 text-white w-4 h-4 flex items-center justify-center rounded-full">

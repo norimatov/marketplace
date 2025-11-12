@@ -11,12 +11,17 @@ const FavoritesPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
+      {/* Page Title */}
       <h1 className="text-2xl font-bold mb-6">Favorites</h1>
 
+      {/* If no favorites */}
       {favorites.length === 0 ? (
-        <p className="text-gray-500">You don't have any favorite products yet.</p>
+        <p className="text-gray-500">
+          You don't have any favorite products yet.
+        </p>
       ) : (
         <>
+          {/* Favorite Products Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {favorites.map((product) => (
               <div
@@ -25,6 +30,7 @@ const FavoritesPage = () => {
               >
                 <Link href={`/product/${product.id}`}>
                   <div className="flex flex-col gap-3 cursor-pointer">
+                    {/* Product Image */}
                     {product.images?.[0] && (
                       <Image
                         src={product.images[0]}
@@ -34,20 +40,24 @@ const FavoritesPage = () => {
                         className="object-cover rounded-md"
                       />
                     )}
+                    {/* Product Title & Price */}
                     <h2 className="text-lg font-semibold">{product.title}</h2>
                     <p className="text-gray-600">${product.price}</p>
                   </div>
                 </Link>
+
+                {/* Remove Single Favorite */}
                 <button
                   onClick={() => removeFromFavorites(product.id)}
                   className="mt-4 flex items-center gap-2 text-red-600 hover:text-red-800 transition"
                 >
-                  <Trash2 size={18} /> clear
+                  <Trash2 size={18} /> Remove
                 </button>
               </div>
             ))}
           </div>
 
+          {/* Clear All Button */}
           <div className="mt-6 flex justify-end">
             <button
               onClick={clearFavorites}

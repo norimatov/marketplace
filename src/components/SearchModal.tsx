@@ -2,6 +2,8 @@
 import axios from "axios";
 import { SearchIcon } from "lucide-react";
 import React, { useEffect } from "react";
+import Link from "next/link";
+import { useDebaunce } from "./hooks/useDabaunce";
 
 interface ProductType {
   id: number;
@@ -17,8 +19,6 @@ interface ProductType {
   images: string[];
 }
 
-import Link from "next/link";
-import { useDebaunce } from "./hooks/useDabaunce";
 const SearchModal = () => {
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -35,10 +35,9 @@ const SearchModal = () => {
         const res = await axios.get(
           `https://dummyjson.com/products/search?q=${debounce}`
         );
-        console.log(res.data);
-        
+
         if (res.data.products.length > 0) {
-          setData(res.data);
+          setData(res.data.products);
           setWarning("");
         } else {
           setData([]);
@@ -66,8 +65,8 @@ const SearchModal = () => {
   };
 
   return (
-    <div className="max-w-[642px] w-full relative">
-      <div className="flex  gap-3  bg-[#F5F5F5] rounded-[8px] px-3 py-2 max-w-[372px] w-full max-h-[58px] h-full">
+    <div className="w-full max-w-[642px] relative">
+      <div className="flex gap-2 sm:gap-3 bg-[#F5F5F5] rounded-md px-2 sm:px-3 py-2 max-w-full">
         <SearchIcon size={20} className="text-gray-400" />
         <input
           onFocus={() => setOpen(true)}
@@ -76,15 +75,15 @@ const SearchModal = () => {
           value={value}
           type="text"
           placeholder="Search"
-          className="placeholder:text-gray-400 active:outline-none  focus:outline-none"
+          className="flex-1 placeholder:text-gray-400 focus:outline-none"
         />
       </div>
 
       {open && value.length > 0 && (
-        <div className="max-h-[400px] overflow-auto absolute top-11 z-50 bg-white w-full border border-gray-200 rounded-b-md p-4 border-t-0">
+        <div className="absolute top-full left-0 z-50 w-full max-h-[400px] overflow-auto bg-white border border-gray-200 rounded-b-md p-3 sm:p-4 mt-1">
           {isLoading && (
-            <div className="flex items-center gap-4 mb-4 bg-gray-200 animate-pulse rounded-md p-2">
-              <h1 className="text-md font-semibold"></h1>
+            <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4 bg-gray-200 animate-pulse rounded-md p-2">
+              <h1 className="text-sm sm:text-md font-semibold"></h1>
             </div>
           )}
 
@@ -95,14 +94,18 @@ const SearchModal = () => {
                 onClick={handleLinkClick}
                 href={`/search/${value}`}
                 key={item.id}
-                className="flex items-center gap-4 mb-4 border-b border-b-gray-200 pb-2"
+                className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4 border-b border-gray-200 pb-2"
               >
-                <h1 className="text-md font-semibold">{item.title}</h1>
+                <h1 className="text-sm sm:text-md font-semibold">
+                  {item.title}
+                </h1>
               </Link>
             ))}
 
           {!isLoading && warning && (
-            <h1 className="text-md font-semibold text-center">{warning}</h1>
+            <h1 className="text-sm sm:text-md font-semibold text-center">
+              {warning}
+            </h1>
           )}
         </div>
       )}
